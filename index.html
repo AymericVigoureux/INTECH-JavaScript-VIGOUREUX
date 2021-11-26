@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Demineur</title>
+		<style>
+			html, body {
+				/* margin: 0px; */
+				/* padding: 0px; */
+				box-sizing: border-box;
+			}
+
+			.flex { display: flex; }
+			.flex-col { flex-direction: column; }
+			.flex-row { flex-direction: row; }
+			.just-evenly { justify-content: space-evenly; }
+			.align-start { align-items: flex-start; }
+			.align-center { align-items: center; }
+
+			body {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-evenly;
+				align-items: center;
+			}
+
+			#canvas {
+				display: grid;
+			}
+
+      
+      .boutonPara{
+        height: 24px;
+        width: 24px;
+      }
+			.controls {
+				margin-left: 1rem;
+			}
+			.controls > * {
+				margin-bottom: 0.5rem;
+			}
+		</style>
+		<script>
+			// Votre code ici...
+		</script>
+	</head>
+	<body class="flex flex-col just-evenly align-center">
+		<h1>Démineur</h1>
+		<div class="flex flex-row just-evenly align-start">
+			<div id="canvas"></div>
+			<fieldset class="controls flex flex-col">
+				<legend>Contrôles</legend>
+				<label>Difficulté:
+          <select name="selectDifficulté" id="diff">
+            <option value="Facile" onclick="LengthOfMap(5)">Facile</option>
+            <option value="Moyen" onclick="LengthOfMap(10)">Moyen</option>
+            <option value="Difficile" onclick="LengthOfMap(20)">Difficile</option>
+          </select>
+				</label>
+				<input type="button" name="reset" value="Rejouer" onClick="chronoReset()" />
+				<span id="chronotime">0:00:00:000</span>
+        <form name="chronoForm">
+            <input type="button" name="startstop" value="Start" onClick="chronoStart()" />
+        </form>
+			</fieldset>
+		</div>
+    <h2>Partie</h2>
+    <div id="affichage jeu" name="jeu">
+      
+    </div>
+
+
+
+
+    <script src="chrono.js"></script>
+    <script src="demineur.js"></script>
+	</body>
+</html>
