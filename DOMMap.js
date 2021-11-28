@@ -1,6 +1,14 @@
 let lengthOfMap = 5;
 let tabValue = tabBombeChiffresValue();
 
+function returnDifficultie(){
+  return ((lengthOfMap ** 2 ) * (10/100));
+}
+
+function setTabValue(){
+  tabValue = tabBombeChiffresValue();
+}
+
 function returnTabValue(){
   return tabValue;
 }
@@ -22,14 +30,14 @@ function createMap(){
 
 function LengthOfMap(value){
   lengthOfMap = value
-  tabValue = tabBombeChiffresValue();
   chronoReset();
 }
 
 function tabBombeChiffresValue(){
 
-  // 10/100 = % des bombes sur la map 
+  // 10/100 = % des bombes sur la map  
   let numberOfBombe = (lengthOfMap ** 2 ) * (10/100);
+  console.log(numberOfBombe);
   let tabBombes = [];
 
   // repartie les bombes aléatoirement
@@ -139,4 +147,3 @@ function tabBombeChiffresValue(){
   }
   return tabValue;
 }
-tabBombeChiffresValue();

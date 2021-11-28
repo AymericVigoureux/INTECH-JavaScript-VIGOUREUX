@@ -10,8 +10,9 @@ function moteur(){
 }
 
 function moteurReset(){
-  console.log("Le jeu est réinitialisé");
+  setTabValue();
   initMap();
+  console.log("Le jeu est réinitialisé");
 }
 
 function moteurStart(){
@@ -52,19 +53,44 @@ function hide(clicked_id){
 
   // rével la case 
   tabValueForMap = returnTabValue();
-  console.log("hide marche!" + clicked_id);
   const maCase = document.getElementById(clicked_id);
   maCase.value = tabValueForMap[clicked_id[0]][clicked_id.slice(-1)];
-  if (tabValueForMap[clicked_id[0]][clicked_id.slice(-1)] === 0){
+  if(tabValueForMap[clicked_id[0]][clicked_id.slice(-1)] === -1){
+    perdu();
+  }
+  else if (tabValueForMap[clicked_id[0]][clicked_id.slice(-1)] === 0){
     let lengthOfMap = tabValueForMap.length;
-    console.log(Number( clicked_id[0]) + 1, Number(clicked_id.slice(-1)) + 1);
     revelCases0(Number( clicked_id[0]), Number(clicked_id.slice(-1)), lengthOfMap);
   }
+  if(gagner(lengthOfMap)){
+    setTimeout(function(){ alert("Tu as gagné!!! \n Une nouvelle partie est créée."); }, 500);
+    chronoReset();
+  }
+}
+
+function gagner(lengthOfMap){
+  let numberOfBombes = returnDifficultie() + 1;
+  for(let element = 0; element < lengthOfMap; element++){
+    for(let element2 = 0; element2 < lengthOfMap; element2++){
+      let maCases = document.getElementById('' + element + ':' + element2);
+      if(maCases.value === ''){
+        numberOfBombes --;
+        if(numberOfBombes < 0){
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
+
+function perdu(){
+  alert("Tu as perdu!!! \n Une nouvelle partie est créée.");
+  chronoReset();
 }
 
 function revel(element, element2){
   let maCases = document.getElementById('' + element + ':' + element2);
-  console.log(maCases.value);
   let valueCase = maCases.value;
   maCases.value = tabValueForMap[element][element2];
   if(tabValueForMap[element][element2] === 0 && valueCase === ''){
