@@ -69,7 +69,7 @@ function hide(clicked_id){
 }
 
 function gagner(lengthOfMap){
-  let numberOfBombes = returnDifficultie() + 1;
+  let numberOfBombes = returnNbBombes() + 1;
   for(let element = 0; element < lengthOfMap; element++){
     for(let element2 = 0; element2 < lengthOfMap; element2++){
       let maCases = document.getElementById('' + element + ':' + element2);

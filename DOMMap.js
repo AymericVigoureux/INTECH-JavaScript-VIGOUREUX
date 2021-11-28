@@ -1,8 +1,14 @@
 let lengthOfMap = 5;
+let difficultie = 15;
 let tabValue = tabBombeChiffresValue();
 
-function returnDifficultie(){
-  return ((lengthOfMap ** 2 ) * (10/100));
+function difficultieNbBombe(value){
+  difficultie = value;
+  chronoReset();
+}
+
+function returnNbBombes(){
+  return ((lengthOfMap ** 2 ) * (difficultie/100));
 }
 
 function setTabValue(){
@@ -36,7 +42,8 @@ function LengthOfMap(value){
 function tabBombeChiffresValue(){
 
   // 10/100 = % des bombes sur la map  
-  let numberOfBombe = (lengthOfMap ** 2 ) * (10/100);
+  numberOfBombe = (lengthOfMap ** 2 ) * (difficultie/100);
+  
   console.log(numberOfBombe);
   let tabBombes = [];
 
