@@ -1,4 +1,4 @@
-let lengthOfMap = 5;
+let tabValueForMap = returnTabValue()
 
 function moteur(){
   if (document.chronoForm.startstop.value === "Pause"){
@@ -39,22 +39,6 @@ function initMap(){
 
 }
 
-function createMap(){
-
-  let map = ['<div class="wrapper" id="map">\n'];
-  for(let i = 0; i < lengthOfMap; i++ ){
-    map.push('<div>');
-    for(let j = 0; j < lengthOfMap; j++){
-      map.push('<input type="button" id="' + i + j + '" class="boutonPara" onClick="hide(this.id)" style="display:inline;"  value="' + i + j + '">');
-    }
-    map.push('</div>');
-  }
-  map.push('</div>');
-  let mapRender = map.join("");
-  console.log(mapRender);
-  return(mapRender);
-}
-
 function hide(clicked_id){
   // démare le chrono 
   if(document.chronoForm.startstop.value === "Start"){
@@ -67,19 +51,90 @@ function hide(clicked_id){
   }
 
   // rével la case 
+  tabValueForMap = returnTabValue();
   console.log("hide marche!" + clicked_id);
   const maCase = document.getElementById(clicked_id);
-  if (maCase.value === clicked_id) {
-    maCase.value = '';
-  } else {
-    maCase.value = '' + clicked_id;
+  maCase.value = tabValueForMap[clicked_id[0]][clicked_id.slice(-1)];
+  if (tabValueForMap[clicked_id[0]][clicked_id.slice(-1)] === 0){
+    let lengthOfMap = tabValueForMap.length;
+    console.log(Number( clicked_id[0]) + 1, Number(clicked_id.slice(-1)) + 1);
+    revelCases0(Number( clicked_id[0]), Number(clicked_id.slice(-1)), lengthOfMap);
   }
 }
 
-function LengthOfMap(value){
-  lengthOfMap = value
-  chronoReset();
+function revel(element, element2){
+  let maCases = document.getElementById('' + element + ':' + element2);
+  console.log(maCases.value);
+  let valueCase = maCases.value;
+  maCases.value = tabValueForMap[element][element2];
+  if(tabValueForMap[element][element2] === 0 && valueCase === ''){
+    revelCases0(element, element2, tabValueForMap.length);
+  }
 }
 
+function revelCases0(element, element2, lengthOfMap){
+  if(element === 0){
+    if(element2 === 0){
+      revel(element + 1, element2);
+      revel(element + 1, element2 + 1);
+      revel(element, element2 + 1);
+    }
+    else if(element2 === lengthOfMap -1){
+      revel(element + 1, element2);
+      revel(element + 1, element2 - 1);
+      revel(element, element2 - 1);
+    }
+    else{
+      revel(element + 1, element2);
+      revel(element + 1, element2 + 1);
+      revel(element + 1, element2 - 1);
+      revel(element, element2 + 1);
+      revel(element, element2 - 1);
+    }
+  }
+  else if(element === lengthOfMap -1){
+    if(element2 === 0){
+      revel(element - 1, element2);
+      revel(element - 1, element2 + 1);
+      revel(element, element2 + 1);
+    }
+    else if(element2 === lengthOfMap -1){
+      revel(element - 1, element2);
+      revel(element - 1, element2 - 1);
+      revel(element, element2 - 1);
+    }
+    else{
+      revel(element - 1, element2);
+      revel(element - 1, element2 + 1);
+      revel(element - 1, element2 - 1);
+      revel(element, element2 + 1);
+      revel(element, element2 - 1);
+    }
+  }
+  else if(element2 === 0){
+    revel(element, element2 + 1);
+    revel(element + 1, element2 + 1);
+    revel(element - 1, element2 + 1);
+    revel(element + 1, element2);
+    revel(element - 1, element2);
+  }
+  else if(element2 === lengthOfMap -1){
+    revel(element, element2 - 1);
+    revel(element + 1, element2 - 1);
+    revel(element - 1, element2 - 1);
+    revel(element + 1, element2);
+    revel(element - 1, element2);
+  }
+  else{
+    revel(element + 1, element2 + 1);
+    revel(element + 1, element2 - 1);
+    revel(element + 1, element2);
+    revel(element - 1, element2 + 1);
+    revel(element - 1, element2 - 1);
+    revel(element - 1, element2);
+    revel(element, element2 + 1);
+    revel(element, element2 - 1);
+  }
+}
 initMap();
 
